@@ -1,9 +1,11 @@
 <template>
-    <MainPage></MainPage>
+    <!-- <MainPage></MainPage> -->
+    <ObjLoadTest></ObjLoadTest>
 </template>
 
 <script setup>
-import MainPage from './components/MainPage.vue'
+import MainPage from './components/MainPage.vue';
+import ObjLoadTest from './components/ObjLoadTest.vue';
 </script>
 
 <style>
