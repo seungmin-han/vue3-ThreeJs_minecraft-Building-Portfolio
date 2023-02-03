@@ -38,7 +38,6 @@
     light.position.set(0, 0, 10);
     camera.position.z = 5;
     scene.background = new THREE.Color('hsl(0, 100%, 100%)');
-    console.log(TrackballControls);
 
     controls = new TrackballControls(camera, renderer.domElement);
     controls.rotateSpeed = 1.0;
@@ -59,6 +58,16 @@
         cube.rotation.y += speed;
         controls.update();
     }
+
+    // const rotate = computed({
+    //     get() {
+    //         if (this.speed === '') {
+    //             return 0
+    //         } else {
+    //             return this.speed;
+    //         }
+    //     }
+    // })
         
 </script>
 
