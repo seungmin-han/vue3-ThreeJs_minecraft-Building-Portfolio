@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-    import { ref, onMounted } from 'vue';
+    import { ref, onMounted, reactive } from 'vue';
     import * as THREE from 'three';
     import TrackballControls from 'three-trackballcontrols';
      const scene = new THREE.Scene();
@@ -27,7 +27,7 @@
     const axes = new THREE.AxesHelper(5);
     const speed = 0.01;
 
-    let controls = [];
+    let controls = reactive([]);
     const canvas = ref(null);
 
     scene.add(camera);
@@ -38,18 +38,18 @@
     light.position.set(0, 0, 10);
     camera.position.z = 5;
     scene.background = new THREE.Color('hsl(0, 100%, 100%)');
-
-    controls = new TrackballControls(camera, renderer.domElement);
-    controls.rotateSpeed = 1.0;
-    controls.zoomSpeed = 5;
-    controls.panSpeed = 0.8;
-    controls.noZoom = false;
-    controls.noPan = false;
-    controls.staticMoving = true;
-    controls.dynamicDampingFactor = 0.3;
     
     onMounted(() => {
         canvas.value.appendChild(renderer.domElement);
+        controls = new TrackballControls(camera, renderer.domElement);
+        controls.rotateSpeed = 3.0;
+        controls.zoomSpeed = 5;
+        controls.panSpeed = 3;
+        controls.noZoom = false;
+        controls.noPan = false;
+        controls.noRotate = false;
+        controls.staticMoving = true;
+        controls.dynamicDampingFactor = 0.3;
         animate();
     })
     const animate = () => {
