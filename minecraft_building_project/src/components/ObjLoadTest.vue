@@ -1,5 +1,5 @@
 <template>
-    <div ref="canvas"></div>
+    <div class="wrapper" ref="canvas"></div>
 </template>
 
 <script setup>
@@ -13,9 +13,6 @@
       fileName: String
     })
 
-    const ASSET_FOLDER_NAME = 'exllu';
-    const FILE_NAME = 'exllu';
-
     let globalObj = reactive(null);
 
     const scene = new THREE.Scene();
@@ -25,10 +22,10 @@
         0.1,
         2000
     );
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance',   });
     // const light = new THREE.DirectionalLight('hsl(44, 100%, 100%)'); // 방향을 갖는 조명
     const light = new THREE.AmbientLight(0xffffff); // 맵 전체 조명
-    // const light = new THREE.HemisphereLight(0xffffff, 0xff0000, 1); // 하늘 -> 땅 까지의 조명 (그라데이션?)
+    // const light = new THREE.HemisphereLight(0xffffff, 0xffffff, 1); // 하늘 -> 땅 까지의 조명 (그라데이션?)
     let controls = reactive([]);
     const canvas = ref(null);
 
@@ -42,8 +39,8 @@
     const loadOBJ = (materials) => {
         const objLoader = new OBJLoader();
         objLoader.setMaterials(materials);
-        objLoader.setPath(`/assets/${ASSET_FOLDER_NAME}/`);
-        objLoader.load(`${FILE_NAME}.obj`, 
+        objLoader.setPath(`/assets/${props.fileName}/`);
+        objLoader.load(`${props.fileName}.obj`, 
             obj => {
                 let box = new THREE.Box3().setFromObject(obj);
                 const center = box.getCenter(new THREE.Vector3());
@@ -64,8 +61,8 @@
 
     const loadMTL = () => {
         const mtlLoader = new MTLLoader();
-        mtlLoader.setPath(`/assets/${ASSET_FOLDER_NAME}/`);
-        mtlLoader.load(`${FILE_NAME}.mtl`, 
+        mtlLoader.setPath(`/assets/${props.fileName}/`);
+        mtlLoader.load(`${props.fileName}.mtl`, 
             materials => {
                 materials.preload();
                 loadOBJ(materials);
@@ -100,6 +97,7 @@
     scene.background = new THREE.Color('hsl(0, 100%, 100%)');
     
     onMounted(() => {
+        console.log(props.fileName);
         canvas.value.appendChild(renderer.domElement);
         createControls();
         animate();
@@ -117,6 +115,8 @@
     }
 </script>
 
-<style>
-
+<style scoped>
+    .wrapper {
+        display: inline-block;
+    }
 </style>
