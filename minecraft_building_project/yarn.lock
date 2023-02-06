@@ -5709,12 +5709,7 @@
     "neo-async" "^2.6.2"
     "schema-utils" "^3.0.0"
 
-"three-trackballcontrols@^0.9.0":
-  "integrity" "sha512-Z6HmIJnP70r5uONvcPCdLEF0SsG1kbGzNb7qQYj3c7b6v2E3XTlbNpZsgTjt36oKm0Z2tU11D6EbW4i8KIHuqA=="
-  "resolved" "https://registry.npmjs.org/three-trackballcontrols/-/three-trackballcontrols-0.9.0.tgz"
-  "version" "0.9.0"
-
-"three@^0.149.0", "three@>= 0.86 <= 1.0":
+"three@^0.149.0":
   "integrity" "sha512-tohpUxPDht0qExRLDTM8sjRLc5d9STURNrdnK3w9A+V4pxaTBfKWWT/IqtiLfg23Vfc3Z+ImNfvRw1/0CtxrkQ=="
   "resolved" "https://registry.npmjs.org/three/-/three-0.149.0.tgz"
   "version" "0.149.0"
