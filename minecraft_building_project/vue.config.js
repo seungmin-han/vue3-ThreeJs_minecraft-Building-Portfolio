@@ -4,5 +4,5 @@ module.exports = defineConfig({
   transpileDependencies: true,
   lintOnSave: false,
   outputDir: '/docs',
-  publicPath: '',
+  publicPath: 'vue3-ThreeJs_minecraft-Building-Portfolio/docs',
 })
