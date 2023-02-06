@@ -1,7 +1,7 @@
 const { defineConfig } = require('@vue/cli-service')
+
 module.exports = defineConfig({
   transpileDependencies: true,
   lintOnSave: false,
-  outputDir: '/docs',
-  publicPath: '/',
+  publicPath: process.env.NODE_ENV === "production" ? "/vue3-ThreeJs_minecraft-Building-Portfolio/" : "/",
 })
