@@ -54,7 +54,7 @@
     const loadOBJ = (materials) => {
         const objLoader = new OBJLoader();
         objLoader.setMaterials(materials);
-        objLoader.setPath(`/assets/${props.fileName}/`);
+        objLoader.setPath(`${process.env.VUE_APP_ASSET_DIR}/assets/${props.fileName}/`);
         objLoader.load(`${props.fileName}.obj`, 
             obj => {
                 let box = new THREE.Box3().setFromObject(obj);
@@ -84,7 +84,7 @@
 
     const loadMTL = () => {
         const mtlLoader = new MTLLoader();
-        mtlLoader.setPath(`/assets/${props.fileName}/`);
+        mtlLoader.setPath(`${process.env.VUE_APP_ASSET_DIR}/assets/${props.fileName}/`);
         mtlLoader.load(`${props.fileName}.mtl`, 
             materials => {
                 materials.preload();
