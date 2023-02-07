@@ -74,14 +74,14 @@ Kd 1.0 1.0 1.0
 Ks 0.0 0.0 0.0
 map_Kd textures/minecraft/glass_cyan_-1.png
 Ns 100.0
-d 1.0
+d 0.5
 newmtl minecraft_glass_black_-1
 Ka 1.0 1.0 1.0
 Kd 1.0 1.0 1.0
 Ks 0.0 0.0 0.0
 map_Kd textures/minecraft/glass_black_-1.png
 Ns 100.0
-d 1.0
+d 0.5
 newmtl minecraft_gold_ore_-1
 Ka 1.0 1.0 1.0
 Kd 1.0 1.0 1.0
@@ -95,7 +95,7 @@ Kd 1.0 1.0 1.0
 Ks 0.0 0.0 0.0
 map_Kd textures/minecraft/glass_gray_-1.png
 Ns 100.0
-d 1.0
+d 0.5
 newmtl minecraft_wool_colored_blue_-1
 Ka 1.0 1.0 1.0
 Kd 1.0 1.0 1.0
@@ -235,7 +235,7 @@ Kd 1.0 1.0 1.0
 Ks 0.0 0.0 0.0
 map_Kd textures/minecraft/glass_white_-1.png
 Ns 100.0
-d 1.0
+d 0.5
 newmtl minecraft_stone_andesite_smooth_-1
 Ka 1.0 1.0 1.0
 Kd 1.0 1.0 1.0

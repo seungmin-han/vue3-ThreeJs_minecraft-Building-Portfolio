@@ -39,7 +39,7 @@ Kd 1.0 1.0 1.0
 Ks 0.0 0.0 0.0
 map_Kd textures/minecraft/glass_black_-1.png
 Ns 100.0
-d 1.0
+d 0.5
 newmtl minecraft_concrete_gray_-1
 Ka 1.0 1.0 1.0
 Kd 1.0 1.0 1.0
