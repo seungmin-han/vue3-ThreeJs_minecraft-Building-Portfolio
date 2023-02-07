@@ -2,9 +2,12 @@
     <div class="item">
         <h2>{{props.fileName}}</h2>
         <div class="wrapper" ref="canvas">
-            <div class="btn-group">  
+            <div v-if="isLoadEnd" class="btn-group">  
                 <button @click="setRotate(0.01)">회전</button>
                 <button @click="setRotate(0)">멈춤</button>
+            </div>
+            <div v-else class="loading">
+                Loading...
             </div>
         </div>
     </div>
@@ -18,6 +21,8 @@
     import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
     // import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls.js';
 
+    const isLoadEnd = ref(false);
+
     const props = defineProps({
         fileName: String
     });
@@ -25,7 +30,7 @@
     const rotate = ref(0);
     const setRotate = value => rotate.value = value;
 
-    let globalObj = reactive(null);
+    let globalObj = reactive({});
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
@@ -34,7 +39,8 @@
         0.1,
         2000
     );
-    const renderer = new THREE.WebGLRenderer({antialias: true});
+    const renderer = new THREE.WebGLRenderer({antialias: true, alpha:true});
+    // const renderer = new THREE.WebGLRenderer({alpha:true});
     const light = new THREE.AmbientLight(0xffffff); // 맵 전체 조명
     /**  const light = new THREE.DirectionalLight('hsl(44, 100%, 100%)'); // 방향을 갖는 조명
      * const light = new THREE.SpotLight(0xffffff); // 스포트 라이트 조명
@@ -51,7 +57,7 @@
     scene.add(camera);
     scene.add(light);
 
-    const loadOBJ = (materials) => {
+    const loadOBJ = async (materials) => {
         const objLoader = new OBJLoader();
         objLoader.setMaterials(materials);
         objLoader.setPath(`${process.env.VUE_APP_PUBLIC_PATH}/assets/${props.fileName}/`);
@@ -70,6 +76,14 @@
                 tmp.add(obj);
                 // scene.add(obj);
                 globalObj = tmp;
+                isLoadEnd.value = true;
+                controls.noZoom = false;
+                controls.noPan = false;
+                controls.noRotate = false;
+                controls.staticMoving = true;
+                canvas.value.appendChild(renderer.domElement);
+                createControls();
+                animate();
             }, 
             // xhr => {
             //     console.log(xhr.loaded / xhr.total * 100 + '% loaded');
@@ -82,7 +96,7 @@
         });
     }
 
-    const loadMTL = () => {
+    const loadMTL = async () => {
         const mtlLoader = new MTLLoader();
         mtlLoader.setPath(`${process.env.VUE_APP_PUBLIC_PATH}/assets/${props.fileName}/`);
         mtlLoader.load(`${props.fileName}.mtl`, 
@@ -101,10 +115,13 @@
     const createControls = () => {
         // controls = new TrackballControls(camera, renderer.domElement);
         controls = new OrbitControls(camera, renderer.domElement);
+        controls.noZoom = true;
+        controls.noPan = true;
+        controls.noRotate = true;
+        controls.staticMoving = false;
         // controls.rotateSpeed = 3.0;
         // controls.zoomSpeed = 5;
         // controls.panSpeed = 3;
-        // controls.noZoom = false;
         // controls.noPan = false;
         // controls.noRotate = false;
         // controls.staticMoving = true;
@@ -117,9 +134,7 @@
     scene.background = new THREE.Color('hsl(0, 100%, 100%)');
     
     onMounted(() => {
-        canvas.value.appendChild(renderer.domElement);
-        createControls();
-        animate();
+        
     })
     const animate = () => {
         requestAnimationFrame(animate);
@@ -142,6 +157,9 @@
     }
     .wrapper {
         position: relative;
+        width: 300px;
+        height: 500px;
+        background-color: #fff;
     }
     .btn-group {
         position: absolute;
@@ -154,5 +172,11 @@
     h2 {
         color: #fff;
         padding: 10px;
+    }
+    .loading {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
     }
 </style>
