@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-    import { ref, onMounted, reactive } from 'vue';
+    import { ref, onMounted, reactive, defineEmits, defineProps } from 'vue';
     import { OBJLoader } from '../modules/OBJLoader';
     import { MTLLoader } from '../modules/MTLLoader';
     import * as THREE from 'three';
@@ -24,6 +24,7 @@
 
     const isLoadEnd = ref(false);
 
+    const emit = defineEmits(['zoom']);
     const props = defineProps({
         fileName: String
     });
@@ -50,6 +51,7 @@
         } else {            
             zoomOut();
         }
+        emit('zoom', isZoom.value);
         camera.updateProjectionMatrix();
     }
 
@@ -138,7 +140,7 @@
                 materials.preload();
                 loadOBJ(materials);
             }, 
-            xhr => {
+            () => {
                 // console.log(xhr.loaded / xhr.total * 100 + '% loaded')
             }, 
             err=>{
@@ -168,7 +170,7 @@
     scene.background = new THREE.Color('hsl(0, 100%, 100%)'); // 색, 채도, 명도 (hue, saturation, lightness)
     
     onMounted(() => {
-        
+        // console.log(canvas.value);
     })
 
     const animate = () => {
