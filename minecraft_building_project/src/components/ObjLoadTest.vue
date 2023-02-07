@@ -63,6 +63,9 @@
         objLoader.setPath(`${process.env.VUE_APP_PUBLIC_PATH}/assets/${props.fileName}/`);
         objLoader.load(`${props.fileName}.obj`, 
             obj => {
+                if(props.fileName == 'market') {
+                    obj.rotation.y = 180;
+                }
                 let box = new THREE.Box3().setFromObject(obj);
                 const size = box.getSize(new THREE.Vector3());
                 const MAX_SIZE = Math.max(size.x, size.y, size.z);
