@@ -1,9 +1,13 @@
 <template>
-    <!-- <MainPage></MainPage> -->
+    <div class="overlay" v-if="showOverlay"></div>
     <h1>Minecraft Buildings</h1>
     <div class="container">
-        <ObjLoadTest v-for="(fileName,index) in objList" :key="index" :fileName="fileName"></ObjLoadTest>
-        <!-- <ObjLoadTest fileName="house"></ObjLoadTest> -->
+        <BuildingItem 
+            v-for="(fileName,index) in objList" 
+            :key="index" 
+            :fileName="fileName" 
+            @zoom="zoom">
+        </BuildingItem>
     </div>
     <footer>
         <div class="footer-wrap">
@@ -18,14 +22,17 @@
 
 <script setup>
 // import MainPage from './components/MainPage.vue';
-import ObjLoadTest from './components/ObjLoadTest.vue';
+import { ref } from '@vue/reactivity';
+import BuildingItem from './components/BuildingItem.vue';
+
+const showOverlay = ref(false);
 
 const objList = [
   'exllu', 
   'nakagin',
+  'hotel', 
   'house', 
   'market', 
-  'hotel', 
   'villa', 
   'office_small', 
   'villa_12room', 
@@ -34,6 +41,11 @@ const objList = [
   'streetBlock',
   'apartment',
 ];
+
+const zoom = (flag) => {
+    showOverlay.value = flag;
+}
+
 
 </script>
 
@@ -53,14 +65,17 @@ h1 {
     padding: 20px;
 }
 .container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 800px;
 }
 
 .item {
-  background-color: #000;
+    background-color: #000;
 }
 .footer-wrap {
     margin-top: 20px;
@@ -89,4 +104,15 @@ a {
     text-decoration: underline;
 }
 
+.overlay {
+    z-index: 10;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.3);
+}
 </style>
